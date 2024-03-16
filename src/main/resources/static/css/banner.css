@@ -1,0 +1,102 @@
+/*Banner */
+.banner{
+
+  margin-top: 50px;
+  width:100%;
+  height: 50vh;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box{
+
+  width:98%;
+  height: 95%;
+  background: #1e1e26;
+  border-radius: 10px;
+  box-shadow: 2px 10px 12px rgba(0,0,0,0.5);
+}
+.model{
+  width: 100%;
+  height: 100%;
+
+}
+
+
+
+.banner-info {
+  position: relative;
+  bottom: 55%;
+  left: 45%;
+}
+.banner-info h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.banner-info p {
+  color: #fff;
+  opacity: 0.8;
+  margin: 10px 0 34px 0;
+}
+/*.video-play-icon {
+  background: #fff;
+  display: inline-block;
+  text-align: center;
+  width: 25px;
+  height:25px;
+  line-height: 25px;
+  border-radius: 50%;
+  transition: 0.3s ease-in-out;
+  -webkit-animation: ripple 1s linear infinite;
+  animation: ripple 1s linear infinite;
+}
+
+.video-play-icon span {
+  color: #ff1e56;
+}
+
+.video-play-icon:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}*/
+.ripple {
+  margin: auto;
+  margin-top: 5rem;
+  background-color: #fff;
+  text-align: center;
+
+  border-radius:50%;
+  position:relative;
+  animation: ripple 3s linear infinite;
+}
+.ripple::before,
+.ripple::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+
+  border-radius: 50%;
+  animation: ripple 3s linear infinite 1s;
+}
+.ripple::after {
+  animation: ripple 3s linear infinite 2s;
+}
+.ripple span {
+
+  color: #ff1e56;
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 .2rem rgba(255,255,255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 2rem rgba(255,255,255, 0);
+  }
+}

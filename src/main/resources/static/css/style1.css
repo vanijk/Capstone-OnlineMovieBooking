@@ -1,0 +1,156 @@
+/*.corossel-container{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 10vh;
+  background-color: #000;
+}*/
+
+#wrapper {
+  width: 100%;
+  max-width: 964px;
+  position: relative;
+}
+
+#carousel {
+  overflow: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#carousel::-webkit-scrollbar {
+  height: 0;
+}
+
+#prev,
+#next {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background: white;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  outline: 0;
+  cursor: pointer;
+  position: absolute;
+}
+
+#prev {
+  top: 50%;
+  left: 0;
+  transform: translate(50%, -50%);
+  display: none;
+}
+
+#next {
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+#content {
+  display: grid;
+  grid-gap: 2px;
+  grid-auto-flow: column;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.item {
+  width: 80px;
+  height: 60px;
+  background: #800000;
+  color: white;
+ text-align: center;
+  line-height: 30px;
+}
+
+/*.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+*/
+
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/*.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}*/
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.showtime a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.6em 0.75em;
+  margin: 0 0.5em 0.65em 0;
+  text-align: center;
+  background: lightgrey;
+  color: black;
+  border: 1px darkgray solid;
+  border-radius: 0.35em;
+  box-shadow: 0px 3px 6px grey;
+  white-space: nowrap;
+
+}
+.showtime-btn{
+  text-align: center;
+  background: lightgrey;
+  color: black;
+  border: 1px darkgray solid;
+  border-radius: 0.35em;
+  box-shadow: 0px 3px 6px grey;
+  padding: 0.6em 0.75em;
+  margin: 0 0.5em 0.65em 0;
+}

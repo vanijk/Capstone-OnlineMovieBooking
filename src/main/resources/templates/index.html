@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- for simply html
+    <link rel="stylesheet" href="../static/css/banner.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="../static/css/lightslider.css" />
+    <script type="text/javascript" src="../static/js/lightslider.js"></script>
+    for simply html ends-->
+    <!-- for application FE-->
+    <link rel="stylesheet" href="css/banner.css" />
+    <link rel="stylesheet" href="css/style1.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/lightslider.css" />
+    <script type="text/javascript" src="js/lightslider.js"></script>
+    <!--for application FE ends -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Call this function for main Slider -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#lightSlider").lightSlider();
+        });
+    </script>
+
+</head>
+<body>
+<!-- Header Starts -->
+<header class="header fixed-top">
+    <!--/nav-->
+    <nav >
+        <div class="header-container">
+            <a class="navbar-brand" href="index2.html">
+                <span class="play fa fa-film"></span>
+                <span class="font-effect-shadow-multiple">Make My Movie</span>
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="dropbtn">Movies
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="movie-DD" >
+                                <a th:each="m: ${movies}" th:text="${m.getTitle()}"></a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--   <li class="nav-item">
+                         <a class="nav-link" href="theater.html">Theaters</a>
+                       </li>-->
+                    <li class="nav-item" id="signinli">
+                        <a class="login-link fa fa-user" href="Sign-in.html"><span class="login-link">Log in/Sign in</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Header ends -->
+
+
+
+<!-- Main Slider -->
+
+<div class="main-slider">
+    <ul id="lightSlider" >
+        <li th:each="m: ${movies}">
+            <div class="banner">
+                <div class="box">
+                    <img th:src="@{'data:image/jpeg;base64,'+${m.generateBase64Image()}}" class="model">
+                     <div class="banner-info">
+                     <a href="#" onclick="openPopupWithIframe('https://www.youtube.com/embed/x-8wTFI3EJk')" style="text-decoration: none">
+                        <span class="video-play-icon ripple" >
+                        <span class="video-play" style="padding-left: 5px;">►</span>
+                        </span></a>
+                        </div>
+                </div>
+            </div>
+        </li>
+        <li >
+            <div class="banner">
+                <div class="box">
+                    <img src="img/banner1.jpeg" class="model">
+                    <div class="banner-info">
+                        <a href="#" onclick="openPopupWithIframe('https://www.youtube.com/embed/x-8wTFI3EJk')" style="text-decoration: none">
+                        <span class="video-play-icon ripple" >
+                        <span class="video-play" style="padding-left: 5px;">►</span>
+                        </span></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- main-slider -->
+
+<!-- Select Day Slider -->
+<!--<form method="GET" id="dtForm" action="/getMoviesByDate">-->
+<h1 style="color: #800000">Showtimes</h1>
+<div id="wrapper">
+    <div id="carousel">
+        <div id="content">
+            <button id="prev">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                >
+                    <path fill="none" d="M0 0h24v24H0V0z" />
+                    <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                </svg>
+            </button>
+            <div class="item" id="d0">Today</div>
+            <!--  <input type="hidden" id="id1" name="date"  /> -->
+            <div  class="item" id="d1" onclick="dateButtonOnClick(this)"></div>
+            <!--  <input type="hidden" id="id2" name="date"  />-->
+             <div class="item" id="d2" onclick="dateButtonOnClick(this)"></div>
+            <!--  <input type="hidden" id="id3" name="date"  />-->
+             <div class="item" id="d3" onclick="dateButtonOnClick(this)"></div>
+          <!--    <input type="hidden" id="id4" name="date"  />-->
+             <div class="item" id="d4" onclick="dateButtonOnClick(this)"></div>
+          <!--    <input type="hidden" id="id5" name="date"  />-->
+             <div class="item" id="d5" onclick="dateButtonOnClick(this)"></div>
+           <!--   <input type="hidden" id="id6" name="date"  />-->
+             <div class="item" id="d6" onclick="dateButtonOnClick(this)"></div>
+           <!--   <input type="hidden" id="id7" name="date"  />-->
+             <div class="item" id="d7" onclick="dateButtonOnClick(this)"></div>
+           <!--   <input type="hidden" id="id8" name="date"  />-->
+             <div class="item" id="d8" onclick="dateButtonOnClick(this)"></div>
+          <!--    <input type="hidden" id="id9" name="date"  /> -->
+             <div class="item" id="d9" onclick="dateButtonOnClick(this)"></div>
+          <!--    <input type="hidden" id="id10" name="date"  />-->
+             <div class="item" id="d10" onclick="dateButtonOnClick(this)"></div>
+          <!--    <input type="hidden" id="id11" name="date"  />-->
+             <div  class="item" id="d11" onclick="dateButtonOnClick(this)"></div>
+           <!--   <input type="hidden" id="id12" name="date"  />-->
+             <div class="item" id="d12" onclick="dateButtonOnClick(this)"></div>
+           <!--   <input type="hidden" id="id13" name="date"  />-->
+             <div class="item" id="d13" onclick="dateButtonOnClick(this)"></div>
+            <!--  <input type="hidden" id="id14" name="date"  />-->
+             <div class="item" id="d14" onclick="dateButtonOnClick(this)"></div>
+
+         </div>
+     </div>
+
+     <button id="next">
+         <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24"
+                 height="24"
+                 viewBox="0 0 24 24">
+             <path fill="none" d="M0 0h24v24H0V0z" />
+             <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+         </svg>
+     </button>
+ </div>
+ <!--</form>-->
+ <script>
+     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+     const d = new Date();
+
+     for(let i = 1; i<16 ;i++){
+         // let dc = (d.getDay() + i ) % 7;
+         let  t = new Date(d.getTime() + 24 * 60 * 60 * 1000 * i);
+         let day = weekday[t.getDay()];
+
+         let month = t.getMonth() + 1 ;
+
+         let date = t.getDate()  ;
+
+         let dt = day +"<br>"+ month+"/"+date;
+         let idt = t.getFullYear()+"-"+month+"-"+date;
+      //   document.getElementById("id"+i).value = idt;
+         document.getElementById("d"+i).innerHTML = dt ;
+         document.getElementById("d"+i).value = idt ;
+
+     }
+
+ </script>
+ <script src="js/app1.js"></script>
+ <script src="js/dateSelectScript.js"></script>
+ <!-- Select Day Slider Ends -->
+
+<!-- Movie List -->
+
+<div>
+    <table style=" padding-left:100px;width: 60%;">
+        <tr style="height: 50vh" th:each="sm: ${screeningMovies}" >
+            <td >
+                <img th:src="@{'data:image/jpeg;base64,'+${sm.getMovie().generateBase64Image()}}" style="width:200px;height:250px">
+            </td>
+            <td>
+                <h1 th:text="${sm.getMovie().getTitle()}"></h1>
+
+                <h4 th:text="${sm.getMovie().getReleased()}+' * ' +${sm.getMovie().getRuntime()} +' * ' + ${sm.getMovie().getGenre()}"> </h4>
+
+                <button class="showtime-btn">Details</button>
+
+                <div style="padding-top: 0px;">
+
+                    <h3 th:text="${sm.getScreenName()}"></h3>
+                    <button class="showtime-btn" onclick="launchMyForm()" th:each="sh : ${sm.getShows()}" th:text="${sh.getShowTime()}">1.30pm</button>
+                    <!--   <button class="showtime-btn">4.00pm</button>
+                       <button class="showtime-btn">6.50pm</button>
+                       <button class="showtime-btn">9.30pm</button> -->
+                </div>
+
+            </td>
+        </tr>
+
+    </table>
+</div>
+<script>
+    function launchMyForm()
+    {
+        alert("test launchMyForm");
+        var myForm = document.createElement("FORM");
+        myForm.setAttribute("id","TestForm");
+        document.body.appendChild(myForm);
+
+// this will create a new FORM which is mapped to the Java Object of myForm, with an id of TestForm. Equivalent to: <form id="TestForm"></form>
+
+        var myInput = document.createElement("INPUT");
+        myInput.setAttribute("id","screen");
+        myInput.setAttribute("name","screen");
+        myInput.setAttribute("type","number");
+        myInput.setAttribute("value",1);
+        document.getElementById("TestForm").appendChild(myInput);
+
+// To submit the form:
+        myForm.method = "GET";
+        myForm.action = "/getSeats";  // or "response.php"
+        myForm.submit();
+
+// This will create an INPUT equivalent to: <INPUT id="MyInput" type="text" value="Heider" /> and then assign it to be inside the TestForm tags.
+
+    }
+</script>
+<!-- Movie List Ends -->
+
+
+</body>
+</html>
