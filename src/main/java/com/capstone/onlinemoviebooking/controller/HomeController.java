@@ -40,6 +40,7 @@ public class HomeController {
         Date currentDate = Date.valueOf(date);
         System.out.println("Formated date"+ date);
         screeningMovies = screeningService.getMoviesByTheterIdAndDate(1l,currentDate,currentDate);
+
         movies = movieService.getMovies();
         model.addAttribute("screeningMovies",screeningMovies);
         model.addAttribute("movies",movies);

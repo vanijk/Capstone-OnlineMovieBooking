@@ -1,26 +1,24 @@
 package com.capstone.onlinemoviebooking.dto;
 
 import com.capstone.onlinemoviebooking.model.Movie;
-import com.capstone.onlinemoviebooking.model.Screen;
 import com.capstone.onlinemoviebooking.model.Show;
-import com.capstone.onlinemoviebooking.model.Theatre;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
-
 @Getter
 @Setter
-public class ScreeningMovie {
-
-    private Movie movie;
+public class Booking {
+    private String title;
     private long theatreId;
     private String theaterName;
     private String theaterAddress;
     private long screenId;
-    private String ScreenName;
+    private String screenName;
     private double ticketPrice;
-    private java.sql.Date date;
-    private List<Show> shows;
+    private java.sql.Date selectedDate;
+    private long showId;
+    private String showTime;
+    private int numberOfTickets;
+    private String SeatNumber;
 }

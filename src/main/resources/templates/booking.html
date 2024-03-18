@@ -1,10 +1,218 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- for simply html
+   <link rel="stylesheet" href="../static/css/banner.css" />
+   <link rel="stylesheet" href="../static/css/style.css" />
+   <link rel="stylesheet" href="../static/css/lightslider.css" />
+   <script type="text/javascript" src="../static/js/lightslider.js"></script>
+   for simply html ends-->
+    <!-- for application FE-->
+    <link rel="stylesheet" href="css/banner.css" />
+    <link rel="stylesheet" href="css/style1.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/seat-style.css" />
+    <link rel="stylesheet" href="css/sign-in.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1>Welcome booking</h1>
+<!-- Header Starts -->
+<header class="header fixed-top">
+    <!--/nav-->
+    <nav >
+        <div class="header-container">
+            <a class="navbar-brand" href="/index">
+                <span class="play fa fa-film"></span>
+                <span class="font-effect-shadow-multiple">Make My Movie</span>
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                <!--    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="dropbtn">Movies
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="movie-DD" >
+                                <a th:each="m: ${movies}" th:text="${m.getTitle()}"></a>
+                            </div>
+                        </div>
+                    </li>-->
+                    <!--   <li class="nav-item">
+                         <a class="nav-link" href="theater.html">Theaters</a>
+                       </li>-->
+                    <li class="nav-item" id="signinli">
+                        <a class="login-link fa fa-user" href="Sign-in.html"><span class="login-link">Log in/Sign in</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Header ends -->
+<div class="full-body-container ">
+<div class="container_Parrent" >
+    <div class="left-container">
+        <h3 th:text="${booking.getScreenName()}"></h3>
+        <div id="arcs1">
+            <div>
+                <span>SCREEN</span>
+            </div>
+        </div>
+        <table >
+
+            <tr class="row"  th:each="ss : ${seatsOfSeats}">
+                <td  th:each="s : ${ss}" th:class ="${s.getClassName()}" th:classappend="${s.getClassName() == 'extracare'} ? 'fa fa-wheelchair'" th:id="${s.getRow()}+${s.getRowNumber()}" ONCLICK="seatclick(this)">
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="right-container">
+        <form th:action="@{/save-booking}" th:object="${booking}" method="post">
+            <input type="hidden" th:field="*{title}" th:value="${booking.getTitle()}">
+            <input type="hidden" th:field="*{theatreId}" th:value="${booking.getTheatreId()}">
+            <input type="hidden" th:field="*{theaterName}" th:value="${booking.getTheaterName()}">
+            <input type="hidden" th:field="*{theaterAddress}" th:value="${booking.getTheaterAddress()}">
+            <input type="hidden" th:field="*{screenId}" th:value="${booking.getScreenId()}">
+            <input type="hidden" th:field="*{screenName}" th:value="${booking.getScreenName()}">
+            <input type="hidden" th:field="*{ticketPrice}" th:value="${booking.getTicketPrice()}">
+            <input type="hidden" th:field="*{selectedDate}" th:value="${booking.getSelectedDate()}">
+            <input type="hidden" th:field="*{showId}" th:value="${booking.getShowId()}">
+            <input type="hidden" th:field="*{showTime}" th:value="${booking.getShowTime()}">
+            <input type="hidden" th:field="*{screenName}" id="testid" name="testname" th:value="${booking.getScreenName()}" />
+        <input type="hidden" >
+        <h3 th:text="${booking.getScreenName()}"></h3>
+        <h3 th:text="${booking.getTicketPrice()}"></h3>
+        <h3 th:text="${booking.getTitle()}"></h3>
+        <h3 th:text="${booking.getTheaterName()}"></h3>
+        <h3 th:text="${booking.getSelectedDate()}"></h3>
+        <h3 th:text="${booking.getShowTime()}"></h3>
+            <h3 th:text="${booking.getTicketPrice()}"></h3>
+            <span>Tickets</span>
+
+            <input type="text" th:field="*{ticketPrice}" th:value="${booking.ticketPrice}">
+            <input type="text" th:field="*{numberOfTickets}" id="ticket-count" />
+            <input type="hidden" th:field="*{seatNumber}" id="tickets1">
+
+            <button id="book-tickets-btn1" type="submit">Book</button>
+        </form>
+      <!--  <button id="book-tickets-btn" th:onclick="testcall()">Book</button>-->
+    </div>
+</div>
+</div>
+<script src="js/seat-map.js"></script>
+<script type="text/javascript" th:inline="javascript">
+const test1 = [[${booking.getShowTime()}]];
+
+  th:function testcall() {
+      const test2 = [[${booking.getShowTime()}]];
+      alert("insde th");
+      alert( test2);
+  }
+</script>
+<script>
+ /*   function testcall() {
+        alert("test");
+        const test = $("#testid");//"${booking.getScreenName()}";
+        alert(test);
+    }*/
+    const bookTicketsBtn = document.getElementById("book-tickets-btn");
+   // const messageElement = document.getElementById("message");
+
+ /*   createProductButton.addEventListener("click", () => {
+        const productId = parseInt(document.getElementById("product-id").value);
+        const productDescription = document.getElementById("product-description").value;
+        const productPrice = parseFloat(document.getElementById("product-price").value);
+
+        const product = {
+            id: productId,
+            description: productDescription,
+            price: productPrice
+        };
+
+        fetch("/create-product", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(product)
+        })
+            .then(response => response.json())
+            .then(() => {
+                // Display success message
+                messageElement.textContent = "Product created successfully!";
+                // Optionally clear form or trigger other actions
+            })
+            .catch(error => {
+                if (error.message !== "Unexpected end of JSON input") {
+                    // Handle other errors
+                    messageElement.textContent = `Error creating product: ${error.message}`;
+                } else {
+                    // Ignore false error and proceed
+                    messageElement.textContent = "Product created successfully!";
+                    // Clear message after 5 seconds
+                    setTimeout(() => {
+                        messageElement.textContent = "";
+                    }, 3000);
+                }
+            });
+    });*/
+</script>
+<!--<div class="seat-container">
+
+    <h1>Movie Div</h1>
+
+    <div class="container">
+
+        <div id="arcs1">
+            <div>
+                <span>SCREEN</span>
+            </div>
+        </div>
+        <table >
+
+            <tr class="row"  th:each="ss : ${seatsOfSeats}">
+                <td  th:each="s : ${ss}" th:class ="${s.getClassName()}" th:classappend="${s.getClassName() == 'extracare'} ? 'fa fa-wheelchair'" th:id="${s.getRow()}+${s.getRowNumber()}" ONCLICK="seatclick(this)">
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="seat-details-container">side div</div>
+</div>
+
+</div>
+
+<script>
+    function seatclick(event){
+        var elementSelect = event.id;
+        var classname1 = document.getElementById(elementSelect).className;
+        alert(classname1);
+        if(classname1 != "path" && classname1 != "booked"){
+            if(classname1 == "extracare fa fa-wheelchair"){
+                alert("wc")
+                document.getElementById(elementSelect).className = "bookedbyscript fa fa-wheelchair ";
+            }else {
+
+                document.getElementById(elementSelect).className = "bookedbyscript";
+            }
+        }
+        if(classname1 == "bookedbyscript"){
+
+            document.getElementById(elementSelect).className = "seat";
+        }
+        if(classname1 == "bookedbyscript fa fa-wheelchair "){
+            document.getElementById(elementSelect).className = "seat fa fa-wheelchair";
+        }
+    }
+</script>-->
 </body>
 </html>

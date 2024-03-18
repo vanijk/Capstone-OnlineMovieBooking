@@ -26,7 +26,18 @@
             $("#lightSlider").lightSlider();
         });
     </script>
+    <script>
+        function openPopupWithIframe(movieURL) {
 
+            let top = (screen.width - 420) /6;
+            let left = (screen.width -520) / 2;
+            var popup = window.open("", "_blank", "width=520,height=420,frameborder= 0,top="+top+",left="+left);
+            // var iframeContent = "<iframe width='500' height='400'  src='https://www.youtube.com/embed/x-8wTFI3EJk'  allowfullscreen></iframe>";
+            var iframeContent = "<iframe width='500' height='400'  src="+movieURL+"  allowfullscreen></iframe>";
+
+            popup.document.writeln(iframeContent);
+        }
+    </script>
 </head>
 <body>
 <!-- Header Starts -->
@@ -34,7 +45,7 @@
     <!--/nav-->
     <nav >
         <div class="header-container">
-            <a class="navbar-brand" href="index2.html">
+            <a class="navbar-brand" href="/index">
                 <span class="play fa fa-film"></span>
                 <span class="font-effect-shadow-multiple">Make My Movie</span>
             </a>
@@ -77,9 +88,10 @@
         <li th:each="m: ${movies}">
             <div class="banner">
                 <div class="box">
-                    <img th:src="@{'data:image/jpeg;base64,'+${m.generateBase64Image()}}" class="model">
+                    <img th:src="@{'data:image/jpeg;base64,'+${m.generateBase64Image()}}"  class="model">
                      <div class="banner-info">
-                     <a href="#" onclick="openPopupWithIframe('https://www.youtube.com/embed/x-8wTFI3EJk')" style="text-decoration: none">
+
+                     <a href="#"  th:attr="onclick='openPopupWithIframe(\'' + ${m.getTrailerUrl()}+  '\');'"  style="text-decoration: none">
                         <span class="video-play-icon ripple" >
                         <span class="video-play" style="padding-left: 5px;">►</span>
                         </span></a>
@@ -106,6 +118,7 @@
 
 <!-- Select Day Slider -->
 <!--<form method="GET" id="dtForm" action="/getMoviesByDate">-->
+
 <h1 style="color: #800000">Showtimes</h1>
 <div id="wrapper">
     <div id="carousel">
@@ -195,8 +208,20 @@
 <!-- Movie List -->
 
 <div>
+ <!--   <form th:action="@{/getSeats}" th:object="${booking}" method="POST"  name="booking-form">
+-->
     <table style=" padding-left:100px;width: 60%;">
         <tr style="height: 50vh" th:each="sm: ${screeningMovies}" >
+           <!-- <input type="hidden" name="theatreId  " value="1" th:field="*{theatreId}"/>
+            <input type="hidden" name="theaterName" value="Spy Cinemas" />
+            <input type="hidden" name="theaterAddress" value="Frisco,Tx" />
+            <input type="hidden" name="title" th:value="${sm.getMovie().getTitle()}" />
+            <input type="hidden" name="selectedDate" th:value="${sm.getDate()}" />
+            <input type="hidden" name="screenId" th:value="${sm.getScreenId()}"/>
+            <input type="hidden" name="screenName" th:value="${sm.getScreenName()}" />
+            <input type="hidden" name="ticketPrice" th:value="${sm.getTicketPrice()}" />
+            <input type="hidden" name="showTime" value="" />
+            <input type="hidden" name="showId" value="" />-->
             <td >
                 <img th:src="@{'data:image/jpeg;base64,'+${sm.getMovie().generateBase64Image()}}" style="width:200px;height:250px">
             </td>
@@ -208,42 +233,43 @@
                 <button class="showtime-btn">Details</button>
 
                 <div style="padding-top: 0px;">
-
                     <h3 th:text="${sm.getScreenName()}"></h3>
-                    <button class="showtime-btn" onclick="launchMyForm()" th:each="sh : ${sm.getShows()}" th:text="${sh.getShowTime()}">1.30pm</button>
-                    <!--   <button class="showtime-btn">4.00pm</button>
-                       <button class="showtime-btn">6.50pm</button>
-                       <button class="showtime-btn">9.30pm</button> -->
+                    <button class="showtime-btn"  th:attr="onclick='launchMyForm(this,\'' + ${sm.getDate()}+  '\');'" th:each="sh : ${sm.getShows()}" th:text="${sh.getShowTime()}" th:value="${sh.getShow_id()}">1.30pm</button>
                 </div>
 
             </td>
         </tr>
 
     </table>
+
 </div>
 <script>
-    function launchMyForm()
+    function launchMyForm(event,dt)
     {
-        alert("test launchMyForm");
-        var myForm = document.createElement("FORM");
-        myForm.setAttribute("id","TestForm");
-        document.body.appendChild(myForm);
+        const formElement = document.createElement("form");
+        formElement.method = "POST";
+        formElement.action = "/getSeats"
+        alert(formElement.method);
+        const inputElement1 = document.createElement("input");
+        inputElement1.name = "theatreId";
+        inputElement1.type = "number";
+        inputElement1.value = 1;
+        formElement.appendChild(inputElement1);
 
-// this will create a new FORM which is mapped to the Java Object of myForm, with an id of TestForm. Equivalent to: <form id="TestForm"></form>
+        const inputElement2 = document.createElement("input");
+        inputElement2.name = "showId";
+        inputElement2.type = "number";
+        inputElement2.value = event.value;
+        formElement.appendChild(inputElement2);
 
-        var myInput = document.createElement("INPUT");
-        myInput.setAttribute("id","screen");
-        myInput.setAttribute("name","screen");
-        myInput.setAttribute("type","number");
-        myInput.setAttribute("value",1);
-        document.getElementById("TestForm").appendChild(myInput);
+        const inputElement3 = document.createElement("input");
+        inputElement3.name = "selectedDate";
+        inputElement3.type = "date";
+        inputElement3.value = dt;
+        formElement.appendChild(inputElement3);
 
-// To submit the form:
-        myForm.method = "GET";
-        myForm.action = "/getSeats";  // or "response.php"
-        myForm.submit();
-
-// This will create an INPUT equivalent to: <INPUT id="MyInput" type="text" value="Heider" /> and then assign it to be inside the TestForm tags.
+        document.body.appendChild(formElement);
+        formElement.submit();
 
     }
 </script>

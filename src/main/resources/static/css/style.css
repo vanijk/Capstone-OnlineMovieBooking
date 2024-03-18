@@ -1,0 +1,128 @@
+.header .navbar-nav .nav-link {
+    background: beige;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    line-height: 28px;
+    padding: 0 15px;
+    color: #312c2c;
+}
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    box-shadow: 0 -5px 20px #4c4c4c;
+
+}
+.header-container {
+    border-color: orangered;
+    background: snow;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    text-decoration: none;
+}
+
+.nav-link.disabled {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: default;
+}
+.header .navbar-nav .nav-link {
+    background: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    line-height: 28px;
+    padding: 0 15px;
+    color: #6c6c33;
+
+}
+.header .navbar-nav .nav-item.active a.nav-link {
+    color: #800000;
+}
+.play {
+    margin-left: 20px;
+    color: #800000;
+    font-size: 35px;
+    text-shadow: 2px 2px 0  black, 6px 6px 0 burlywood, 10px 10px 0 bisque;
+}
+.font-effect-shadow-multiple {
+    margin-left: 20px;
+    font-family: 'Rancho', serif;
+    font-size: 48px;
+    color:  #800000;
+    text-shadow: 4px 4px 4px #aaa;
+}
+.navbar-brand {
+    text-decoration: none;
+}
+
+ul {
+    margin: 0px;
+    margin-right: 30px;
+    padding: 0px;
+}
+ul li {
+    margin: 5px;
+    margin-bottom: 0px;
+    display: inline-block;
+}
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: black;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.login-link{
+    background: none;
+    text-decoration: none;
+    line-height: 28px;
+    color: #6c6c33;
+    padding-left: 10px;
+}
+/* Test slider */

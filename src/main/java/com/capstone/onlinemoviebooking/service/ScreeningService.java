@@ -43,7 +43,8 @@ public class ScreeningService {
            Screen screen = shows.get(0).getScreen();
            sm.setScreenId(screen.getScreenId());
            sm.setScreenName(screen.getScreenName());
-          // Show firstshow = shows.get(o);
+           sm.setTicketPrice(screen.getTicketPrice());
+           sm.setDate(date);
           // screens.add(screen);
            for(Show show : shows){
                 if(movie.equals(show.getMovie()) ){
@@ -58,16 +59,12 @@ public class ScreeningService {
                     screen = show.getScreen();
                     sm.setScreenId(screen.getScreenId());
                     sm.setScreenName(screen.getScreenName());
+                    sm.setTicketPrice(screen.getTicketPrice());
+                    sm.setDate(date);
                     System.out.println(showsList.size());
-                /*    List<Show> showsList0 = new ArrayList<>();
 
-                    for (int i=0; i< showsList.size(); i++){
-                        showsList0.add(showsList.get(i) );
-                    }
-                    System.out.println("000 "+showsList0.size());
-                    sm.setShows(showsList0);*/
                     showsList = new ArrayList<>();
-                    //System.out.println("000 "+showsList0.size());
+
                     showsList.add(show);
                 }
            }

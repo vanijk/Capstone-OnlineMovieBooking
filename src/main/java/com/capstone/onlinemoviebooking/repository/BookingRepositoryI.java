@@ -1,5 +1,6 @@
 package com.capstone.onlinemoviebooking.repository;
 
+import com.capstone.onlinemoviebooking.dto.Booking;
 import com.capstone.onlinemoviebooking.model.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

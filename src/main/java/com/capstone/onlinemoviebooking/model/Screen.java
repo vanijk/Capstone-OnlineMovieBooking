@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long screenId;
     private  String screenName;
+    private double ticketPrice;
     @ManyToOne
     private Theatre theatre;
 }
