@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- for simply html
+   <link rel="stylesheet" href="../static/css/banner.css" />
+   <link rel="stylesheet" href="../static/css/style.css" />
+   <link rel="stylesheet" href="../static/css/lightslider.css" />
+   <script type="text/javascript" src="../static/js/lightslider.js"></script>
+   for simply html ends-->
+    <!-- for application FE-->
+    <link rel="stylesheet" href="css/banner.css" />
+    <link rel="stylesheet" href="css/style1.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/seat-style.css" />
+    <link rel="stylesheet" href="css/sign-in.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<!-- Header Starts -->
+<header class="header fixed-top">
+    <!--/nav-->
+    <nav >
+        <div class="header-container">
+            <a class="navbar-brand" href="/index">
+                <span class="play fa fa-film"></span>
+                <span class="font-effect-shadow-multiple">Make My Movie</span>
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Header ends -->
+<div class="full-body-container ">
+    <div class="container_Parrent" >
+        <div class="left-container" style="width:60%">
+            <div class="parrentbox" id="guest-form">
+             <!--   <form name="sign-in-form" style="" action="Login.html" >-->
+                <h1>Check Out</h1>
+                <p>
+                    Sign in to use saved payment information. If you don't have an account,
+                    <a href="/login">you can register for a Cinemark account.</a>
+                </p>
+                <button class="button-fill">Sign In</button>
+                <br><br>
+                <button class="button-nofill" id="guset-checkout-btn">Guest Checkout</button>
+
+             <!--   </form> -->
+             </div>
+            <div id="guest-credit-form" class="childbox">
+                <h1>Check Out</h1>
+                <div class="guest-email-container" style="text-align: left;padding: 20px">
+<form action="/guest-signup-process" method="post">
+                    <h5 style="font-size: 20px;font-weight: bold">Email Address</h5>
+                    <input type="text" name="guestEmail" placeholder="Email" style="width:70%"/>
+    <button type="submit" class="button-fill">complete checkout</button>
+</form>
+                </div>
+                <br>
+                <div class="creditcard-container" style="text-align: left;padding: 10px;">
+
+
+                                <div class="icon-container" >
+                                    <span style="font-size: 20px;font-weight: bold">Credit Card </span>
+
+                                    <i class="fa fa-cc-visa" style="color: navy;padding-left: 80px"></i>
+                                    <i class="fa fa-cc-amex" style="color: blue"></i>
+                                    <i class="fa fa-cc-mastercard" style="color: red"></i>
+                                    <i class="fa fa-cc-discover" style="color: orange;"></i>
+
+                                </div>
+
+<br>
+
+                                <label for="cname">Card Number</label>
+                                <input type="text" id="cname" name="cardname"  placeholder="XXX-XXXX-XXX" readonly="readonly" style="width:70%"/>
+
+
+                    <table style="width: 90%;margin-left: 0;text-align: left;padding: 0px;
+  ">
+                        <tr>
+                            <td>
+
+                                <label for="cname1">Exp Month</label>
+                                <select id="cname1" readonly="readonly" style="width:70%;height:40px"><option>Jan</option></select>
+                            </td>
+                            <td>
+
+                                <label for="cname3">Exp Year</label>
+                                <select id="cname3" readonly="readonly" style="width:70%;height:40px"><option>2024</option></select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <label for="cname4">Billing ZIP code</label>
+                                <input type="text" id="cname4" name="cardname"  placeholder="12345" readonly="readonly"/>
+                            </td>
+                            <td>
+                                <label for="cname5">Card Security Code</label>
+                                <input type="text" id="cname5" name="cardname"  placeholder="***" readonly="readonly"/>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+
+            </div>
+
+        </div>
+        <div class="right-container" style="width:40%">
+            <h3>Kung fu panda 4</h3>
+            <p>march 19 2024 at 7:55 PM<br>
+            Cinemark west Plano<br>
+            Screen 1<br>
+            Tickets(<span>2</span>)<br>
+            Seat<span>A1</span></p>
+            <h3>Summary</h3>
+            <table style="color:#333">
+                <tr><td>Tickets</td><td>$9.50</td></tr>
+                <tr><td>Online Ticket Fees<h5>Online Fees are waived when you register</h5></td><td>$1.89</td></tr>
+                <tr><td>Tax</td><td>$0.94</td></tr>
+                <tr><td><h3>Total</h3></td><td>$12.33</td></tr>
+
+            </table>
+            <p>By completing your purchase,
+                you agree to our <a href="#">Terms & Conditions and Privacy Policy</a> and
+                acknowledge that you are at least 16 years of age.</p>
+       <!--     <input type="email" id="email" name="si-email" placeholder="Email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,3}$">
+            <input type="password" id="pwd" name="pwd"  placeholder="Password" pattern=".{8,}" title="Eight or more characters" required>
+            <a href="#">Forgot your password?</a>
+            <button>Sign In</button>-->
+        </div>
+    </div>
+</div>
+<script>
+    let btn = document.getElementById("guset-checkout-btn");
+    //let box2 = document.getElementById("overlay");
+    btn.addEventListener('click', () => {
+       let childbox = document.getElementById("guest-credit-form");
+       let parrentbox = document.getElementById("guest-form");
+
+        childbox.style.display = "block";
+        parrentbox.style.display = "none";
+
+
+    });
+
+</script>
+</body>
+</html>

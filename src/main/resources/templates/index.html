@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <html lang="en">
 <head>
 
@@ -40,6 +41,8 @@
     </script>
 </head>
 <body>
+
+
 <!-- Header Starts -->
 <header class="header fixed-top">
     <!--/nav-->
@@ -69,7 +72,13 @@
                          <a class="nav-link" href="theater.html">Theaters</a>
                        </li>-->
                     <li class="nav-item" id="signinli">
-                        <a class="login-link fa fa-user" href="Sign-in.html"><span class="login-link">Log in/Sign in</span></a>
+                        <div sec:authorize="isAuthenticated()">
+                            <h1>Authenticated</h1>
+                            <span th:text="${#request.userPrincipal.principal.firstName}"></span>
+                        </div>
+                        <div sec:authorize="!isAuthenticated()">
+                            <a class="login-link fa fa-user" href="/login"><span class="login-link">Log in/Sign in</span></a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -249,7 +258,7 @@
         const formElement = document.createElement("form");
         formElement.method = "POST";
         formElement.action = "/getSeats"
-        alert(formElement.method);
+
         const inputElement1 = document.createElement("input");
         inputElement1.name = "theatreId";
         inputElement1.type = "number";

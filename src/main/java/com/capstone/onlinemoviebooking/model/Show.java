@@ -2,6 +2,7 @@ package com.capstone.onlinemoviebooking.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +13,7 @@ import java.sql.Time;
 @Table(name = "SHOW")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Show {
     @Id
     @Column(name = "SHOW_ID")
@@ -29,4 +31,11 @@ public class Show {
     @ManyToOne
     private Screen screen;
 
+    public Show(Movie movie, Screen screen,String showTime, Date startDate, Date endDate  ) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.showTime = showTime;
+        this.movie = movie;
+        this.screen = screen;
+    }
 }

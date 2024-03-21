@@ -6,6 +6,7 @@ import com.capstone.onlinemoviebooking.repository.BookingRepositoryI;
 import com.capstone.onlinemoviebooking.repository.SeatMapRepositoryI;
 import com.capstone.onlinemoviebooking.service.BookingService;
 import com.capstone.onlinemoviebooking.service.SeatMapService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+//@RequestMapping(value = "/booking")
 public class BookingController {
     @Autowired
     BookingService bookingService;
@@ -56,10 +58,15 @@ public class BookingController {
         return "booking";
     }
     @PostMapping("/save-booking")
-    public String getBookingDetails(Booking booking){
+    public String getBookingDetails(Booking booking,Model model, HttpServletRequest request){
         System.out.println(booking.getSeatNumber());
         System.out.println(booking.getNumberOfTickets());
-        return"thankyou";
+        Booking book = (Booking) request.getSession().getAttribute("MY_SESSION_MESSAGES");
+        if (book == null) {
+            request.getSession().setAttribute("MY_SESSION_MESSAGES", booking);
+        }
+        model.addAttribute("booking",booking);
+        return"login-booking";
     }
     public List<List<SeatMap>> getSeatListOfList(List<SeatMap> seats){
         List<List<SeatMap>> s1 = new ArrayList<>();

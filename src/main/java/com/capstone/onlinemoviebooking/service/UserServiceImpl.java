@@ -70,16 +70,58 @@ public class UserServiceImpl implements UserService {
      * @param userDTO
      */
     @Transactional
-    public void creat(UserDTO userDTO)
+    public String creat(UserDTO userDTO)
     {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         User user = modelMapper.map(userDTO, User.class);
 
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_USER")));
+        try{
+            if(userRepository.findUserByEmail(user.getEmail())== null) {
+                userRepository.save(user);
+                return "Registered Succesfully";
+            }else{
+                return "Email Already Registerd";
+            }
+        }catch(Exception e){
+            System.out.println(e.fillInStackTrace());
+        }
+return "";
+
+    }
+
+    /**
+     * Using model mapper
+     * helps to avoid extra
+     * coding
+     * @param email
+     */
+    @Transactional
+    public long creatGuest(String email)
+    {
+       // ModelMapper modelMapper = new ModelMapper();
+      //  modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        User user = new User();//modelMapper.map(userDTO, User.class);
+        user.setUserName(email);
+        user.setEmail(email);
+        long userId = 0l;
+        user.setPassword(encoder.encode("GUEST"));
         user.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_GUEST")));
 
-        userRepository.save(user);
+        try{
+            if(userRepository.findUserByEmail(email) != null) {
+               userId = userRepository.findUserByEmail(email).getId();
+            }else{
+                userId = userRepository.save(user).getId();
+            }
+        }catch(Exception e){
+            System.out.println(e.fillInStackTrace());
+        }
+
+
+        return userId;
     }
 
     /**

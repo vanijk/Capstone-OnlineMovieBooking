@@ -36,7 +36,7 @@ function increament(elementSelect){
 
     let c ;
     const ticketCount = document.getElementById("ticket-count");
-    alert(ticketCount.value);
+  //  alert(ticketCount.value);
     let  ticketValue = document.getElementById("tickets1").value;
     document.getElementById("tickets1").value = ticketValue + elementSelect+",";
 
@@ -50,7 +50,7 @@ function increament(elementSelect){
 
     }
     ticketCount.value =c+1;
-    alert(ticketCount.value);
+   // alert(ticketCount.value);
    // let tickets =document.getElementsByName("tickets");
    // document.getElementsByName("tickets1") = "bjbj";
 
@@ -80,7 +80,7 @@ function updateRight(elementSelect){
     const ticketCount = document.getElementById("ticket-count");
     if(ticketCount.innerText == ""){
         c = 0
-        alert(c);
+      //  alert(c);
     }else{
         let n = ticketCount.innerText;
         c = parseInt(n,10);

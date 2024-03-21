@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepositoryI extends JpaRepository<Movie, Long> {
+
     @Query("FROM Movie  WHERE title like :title ")
     Movie getReferenceByTitle(String title);
 }

@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/sign-in.css">
+   <style>
+    .fa-facebook-f:before,
+    .fa-facebook:before {
+        content: "";
+    }
+    </style>
+    <script src="Sign-in-validation.js"></script>
+
+    </head>
+<body >
+
+<div class="container_signup_signin" id="container_signup_signin">
+    <div class="form-container sign-up-container">
+
+            <h3>Register a New Account</h3>
+            <form action="#" th:action="@{/signup-process}"  th:object="${userDto}"  id="userForm" method="post" enctype="utf8">
+
+
+
+                    <input type="text" th:field="*{firstName}" placeholder= "First Name" style="margin: 2px 0;" pattern="[a-zA-Z]+"  required/>
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}"></span><br/>
+
+                    <input type="text" th:field="*{lastName}" placeholder = "Last Name" style="margin: 2px 0;" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter on alphabets only. ')" />
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}"></span><br/>
+
+
+                    <input type="text" th:field="*{email}" placeholder="Email" style="margin: 2px 0;" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,3}$" required/>
+                    <span th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}"></span><br/>
+
+                    <input type="number" th:field ="*{phone}" placeholder="Phone Number" style="margin: 2px 0;" required/>
+                    <span th:if="${#fields.hasErrors('phone')}"
+                          th:errors="*{phone}"></span><br/>
+
+                    <input type="text" th:field="*{zip}" pattern="[0-9]{5}$" placeholder="zip" style="margin: 2px 0;" required/>
+                    <span th:if="${#fields.hasErrors('zip')}"
+                          th:errors="*{zip}"></span><br/>
+
+                    <input type="text" th:field="*{userName}" placeholder="User Name" style="margin: 2px 0;" required/>
+                    <span th:if="${#fields.hasErrors('userName')}"
+                          th:errors="*{userName}"></span><br/>
+
+                    <input type="password" th:field="*{password}" placeholder="Password" style="margin: 2px 0;" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" required/>
+                    <span th:if="${#fields.hasErrors('password')}"
+                          th:errors="*{password}"></span><br/>
+
+                    <input type="password" th:field="*{matchingPassword}" placeholder="Verify Password" style="margin: 2px 0;" name="password_two" id="password_two" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"  required>
+
+                <span th:if="${#fields.hasErrors('matchingPassword')}"
+                          th:errors="*{matchingPassword}"></span><br/>
+
+                <button type="submit" class="button-fill">Sign Up</button>
+            </form>
+         <!-- <input type="email" id="email-su" placeholder="Email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,3}$">
+          <input id="password" name="password" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
+
+          <input id="password_two" name="password_two" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
+            <input name="sign-up-fname" type="text" placeholder="First Name" pattern="[a-zA-Z]{2,64}" required/>
+            <input name="sign-up-lname" type="text" placeholder="Last Name"  pattern="[a-zA-Z]{2,64}" required/>
+-->
+            <!-- <input type="email" placeholder="example@domain.com" spellcheck="false" required pattern="(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}">
+             <input name="sign-up-email" type="email" placeholder="Email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+.\[a-z]{2,}$" required/>
+             <input name="sign-up-passwd" type="password" placeholder="Password" required/>
+             <input name="sign-up-passwd" type="password" placeholder="Confirm Password" required/> -->
+           <!--<input type="checkbox" id="cond" name="cond" >
+          <label for="cond">I have read and agree to the
+          Terms & Conditions and Private Policy
+          and aknowledge that
+          I am at leat 16 years of age.</label>-->
+
+
+    </div>
+    <div class="form-container sign-in-container">
+        <div th:if="${Message != null}">
+            <h2 th:text="${Message}"></h2>
+        </div>
+        <form class="form-signin" method="post" action="#" th:action="@{/login-sumit}">
+            <h2 class="form-signin-heading">Please sign in</h2>
+
+                <input type="text" id="username"  name="username" class="form-control" placeholder="Username" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,3}$" required>
+
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+               <a href="#">Forgot your password?</a>
+            <button class="button-fill" type="submit">Sign in</button>
+        </form>
+
+      <!--  <form name="sign-in-form" style="" action="home.html" >
+            <div th:if="${Message != null}">
+                <h2 th:text="${Message}"></h2>
+            </div>
+            <h1>Sign in</h1>-->
+           <!-- <div class="social-container">
+                <a href="#" class="social" style="color: var(--theme-title);"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social" style="color: var(--theme-title);"><i
+                        class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social" style="color: var(--theme-title);"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>-->
+          <!--<input type="email" id="email" name="si-email" placeholder="Email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,3}$" required>
+          <input type="password" id="pwd" name="pwd"  placeholder="Password" pattern=".{8,}" title="Eight or more characters" required>
+          <a href="#">Forgot your password?</a>
+           <button class="button-fill">Sign In</button>
+        </form>-->
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left" style="text-align: left;">
+                <h4>Why Register for a <i style="font-weight: bold">Make My Movie</i> Account?</h4>
+
+                <h4><i class="fa fa-ticket" aria-hidden="true" style="font-size:24px;color:white"></i>
+                    Save your Tickets & Orders</h4>
+                <h4><i class='fas fa-money-bill-wave' style='font-size:24px;color:white;margin-right: 12px;'></i>Earn & Redeem Rewards</h4>
+                <h4><i class='fas fa-money-check' style='font-size:24px;color:white;margin-right: 25px;'></i>Save Payment Cards</h4>
+              <!--  <button class="button-nofill" id="signIn">Sign In</button>-->
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h3> Don't have an account?</h3>
+                <p>Register and book your tickets now!!!</p>
+                <button class="button-nofill" id="signUp">Register</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container_signup_signin');
+
+    signUpButton.addEventListener('click', () => {
+container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+container.classList.remove("right-panel-active");
+});
+
+</script>
+
+
+</body>
+</html>

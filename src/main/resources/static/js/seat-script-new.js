@@ -32,7 +32,7 @@ function updateSelectedCount() {
 
 // Get data from localstorage and populate UI
 function populateUI() {
-  alert(container)
+
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
 
   if (selectedSeats !== null && selectedSeats.length > 0) {
@@ -59,7 +59,7 @@ movieSelect.addEventListener('change', e => {
 
 // Seat click event
 container.addEventListener('click', e => {
- alert("test");
+
   if (
     e.target.classList.contains('seat') &&
     !e.target.classList.contains('occupied')
