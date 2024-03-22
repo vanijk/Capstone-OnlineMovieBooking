@@ -2,12 +2,14 @@ package com.capstone.onlinemoviebooking.security;
 
 import com.capstone.onlinemoviebooking.service.UserServiceImpl;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,6 +38,8 @@ public class SecurityConfiguration {
         return auth;
     }
 
+
+
     //beans
     //bcrypt bean definition
     @Bean
@@ -43,14 +47,43 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder(11);
     }
 
-    @Bean
+
+  /* @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(
+                        (auth) -> auth
+                                .requestMatchers("/", "/login*",
+                                        "/css/*", "/js/*", "/sign-up", "/signup-process").permitAll()
+                                .requestMatchers("/home").hasAnyRole("USER", "ADMIN","GUEST")
+                                .anyRequest().authenticated()
+                )
+
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login") // should point to login page
+                        .successForwardUrl("/home") // must be in order thymeleaf security extras work
+                        .permitAll()
+                )
+                .logout(
+                        logout -> logout
+                                .invalidateHttpSession(true)
+                                .clearAuthentication(true)
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .permitAll()
+                );
+        return http.build();
+
+    }*/
+
+  @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
        http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         (auth) -> auth
-                                .requestMatchers("/admin").authenticated()
+                                .requestMatchers("/login-submit").authenticated()
                                 .requestMatchers("/**").permitAll()
                 )
 

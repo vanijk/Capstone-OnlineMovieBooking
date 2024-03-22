@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_USER")));
+       // user.setRoles(Arrays.asList(roleService.findRoleByRoleName("ROLE_ADMIN")));
         try{
             if(userRepository.findUserByEmail(user.getEmail())== null) {
                 userRepository.save(user);

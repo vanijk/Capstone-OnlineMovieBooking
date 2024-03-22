@@ -1,5 +1,6 @@
 package com.capstone.onlinemoviebooking.service;
 
+import com.capstone.onlinemoviebooking.dto.MovieDTO;
 import com.capstone.onlinemoviebooking.model.Movie;
 import com.capstone.onlinemoviebooking.model.Screen;
 import com.capstone.onlinemoviebooking.model.Show;
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;
 import java.util.Optional;
@@ -84,7 +86,24 @@ public class MovieService {
         movieRepositoryI.save(movie);
         return movie;
     }
+    public List<MovieDTO> getMoviesDTO(){
+        List<MovieDTO> movieDTOS = new ArrayList<>();
+        try {
+            List<Movie> movies = movieRepositoryI.findAll();
+            MovieDTO movieDTO = null;
+            for(Movie movie : movies){
+                movieDTO = new MovieDTO();
+                movieDTO.setTitle(movie.getTitle());
+                movieDTO.setShows( showRepositoryI.getShowsByMovieTitle(movie.getTitle()));
+                movieDTOS.add(movieDTO);
+            }
 
+        }catch (Exception e){
+            LOGGER.error("assignShow failed"+e.getMessage());
+            e.printStackTrace();
+        }
+        return movieDTOS;
+    }
     public String assignShow(String title,long screenId,String showTime,java.sql.Date starDate,java.sql.Date endDate){
       try {
           Movie movie = movieRepositoryI.getReferenceByTitle(title);

@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -40,8 +39,9 @@ public class UserController {
     }
 
     @PostMapping("/login-sumit")
-    private String getLoginSubmit(HttpServletRequest request,HttpServletResponse response)
+    private String getLoginSubmit( HttpServletRequest request, HttpServletResponse response)
     {
+
         RequestCache requestCache = new HttpSessionRequestCache();
         requestCache.getRequest(request,response);
 
@@ -50,9 +50,10 @@ public class UserController {
         boolean hasUserRole = authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
         String url = (String)request.getSession().getAttribute("url_prior_login");
-        if(url != null){
+        return "/admin-page";
+     /*   if(url != null || url != "/sign-in" || url != "/login"){
             url = getUrl(url);
-        }else{
+        }else if(){
             return "/admin-page";
         }
         if(url.equals("/save-booking")){
@@ -62,7 +63,7 @@ public class UserController {
         //  model.addAttribute("userDto", new UserDTO());
         return "redirect:"+url;
 
-       // return "test";
+        // return "test";*/
     }
 
     @PostMapping("/thankyou")
@@ -77,16 +78,16 @@ public class UserController {
         model.addAttribute("userDto", new UserDTO());
         return "sign-up";
     }
-   /* @GetMapping("/home")
-    public String signUp(Model model,HttpServletRequest request)
-    {
-        String url = (String)request.getSession().getAttribute("url_prior_login");
-        if(url != null){
-           url = getUrl(url);
-        }
-      //  model.addAttribute("userDto", new UserDTO());
-        return "url";
-    }*/
+ @GetMapping("/home")
+  public String signUp(Model model,HttpServletRequest request)
+  {
+      String url = (String)request.getSession().getAttribute("url_prior_login");
+      if(url != null){
+         url = getUrl(url);
+      }
+    //  model.addAttribute("userDto", new UserDTO());
+      return "url";
+  }
 
     @PostMapping("/signup-process")
     public String signupProcess(@Valid @ModelAttribute("userDto") UserDTO userDTO, BindingResult bindingResult,Model model)
@@ -103,7 +104,7 @@ public class UserController {
         String message = userDetailsService.creat(userDTO);
         model.addAttribute("Message",message);
         //return "confirmation";
-       return "sign-in";
+        return "sign-in";
     }
     @PostMapping("/guest-signup-process")
     public String GustSignupProcess(String guestEmail,Model model, HttpServletRequest request)
@@ -128,7 +129,7 @@ public class UserController {
         }
         model.addAttribute("userDto", new UserDTO());
         //return "login";
-       return "sign-in";
+        return "sign-in";
     }
     @GetMapping("/sign-in")
     public String getSigninPage(Model model,HttpServletRequest request,HttpServletResponse response)
@@ -151,15 +152,16 @@ public class UserController {
         return "error";
     }
 
-    @RequestMapping("/home")
-    public String getHome()
-    {
-        log.info("home page displayed");
-        return "home";
-    }
+    /*  @RequestMapping("/home")
+      public String getHome()
+      {
+          log.info("home page displayed");
+          return "home";
+      }*/
     String getUrl(String url){
         String[] strArr = url.split("http://localhost:8080");
         System.out.println("URL ARRAY :" +strArr.length +" "+ strArr[1]);
         return strArr[1];
     }
+
 }

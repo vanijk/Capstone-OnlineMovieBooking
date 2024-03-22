@@ -1,10 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Movie To Show</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="mb-3">
+            <h1>Assign/update Show</h1>
+            <!-- Theater Selections Starts -->
+               <div th:unless="${screens}">
+                   <form th:action="@{/admin/edit-page}" method="GET">
+                       <input type="hidden" id="title" name="title" th:value="${movieDTO.getTitle()}" >
+                   <div class="form-group">
+                    <label class="form-label">  Select Theater</label>
+                    <select class="form-control selectpicker"  id="theaterId" name="theaterId" style="width: 50%">
+                        <option value="">Nothing selected</option>
+                        <option th:each="t : ${theaters}"
+                                th:name="${theaterId}"
+                                th:value="${t.getTheatreId()}"
+                                th:text="${t.getTheatreName()}">
+                        </option>
 
-</body>
-</html>
+                    </select>
+                       <br>
+                   </div>
+                       <button type="submit" class="btn btn-primary">Get Details</button>
+
+                   </form>
+            </div>
+            <!-- Theater Selections ends -->
+            <!--- Screen Details Starts -------->
+
+            <div th:if="${screens}">
+                <form th:action="@{/admin/UpdateShow}" th:object="${movieDTO}" method="POST">
+                    <input type="hidden"  name="title" th:value="${movieDTO.getTitle()}" >
+                    <input type="hidden" name="theatreId" th:value="${movieDTO.getTheatreId()}" >
+                    <div class="form-group" >
+                        <label class="form-label"> Select Screen </label>
+                        <select class="form-control selectpicker"  id="screenId" name="screenId" style="width: 50%">
+                            <option value="">Nothing selected</option>
+                            <option th:each="s : ${screens}"
+                                    th:value="${s.getScreenId()}"
+                                    th:text="${s.screenName}">
+                            </option>
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">  Select Show Start Date</label>
+                        <input type="Date" name="startDate"  class="form-control"  placeholder="YYYY-MM-dd" style="width: 50%" >
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">  Select Show End Date</label>
+                        <input type="Date" name="endDate"  class="form-control"  placeholder="YYYY-MM-dd" style="width: 50%">
+                    </div>
+                    <div class="form-group" th:each="sh, itemStat: *{shows}">
+
+                        <label class="form-label">  Enter Show Time</label>
+                        <input type="text" th:field="*{shows[__${itemStat.index}__].showTime}"  class="form-control" style="width: 50%">
+
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div><!-- if div close -->
+
+
+    <!-- Screen Details Ends --------->
+
+        </div>
+    </div>
+</div>
+<script>
+    function addInput(){
+
+    }
+</script>
+ </body>
+ </html>

@@ -22,4 +22,7 @@ public class MovieDTO {
     private java.sql.Date startDate;
     private java.sql.Date endDate;
     private List<Show> shows;
+    public void addShow(Show show) {
+        this.shows.add(show);
+    }
 }

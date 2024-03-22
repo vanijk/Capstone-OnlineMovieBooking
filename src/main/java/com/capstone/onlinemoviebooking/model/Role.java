@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @ToString
 @Entity
-public class Role {
+public class Role  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
