@@ -59,7 +59,7 @@ public class MovieServiceTest {
         Show show = showOptional.orElse(null);
         long c = showRepositoryI.count();
 
-        showRepositoryI.deleteById(show.getShow_id());
+        showRepositoryI.deleteById(show.getShowId());
         c = c - 1;
         System.out.println("After delete"+c);
         assertThat(showRepositoryI.count()).isEqualTo((c));

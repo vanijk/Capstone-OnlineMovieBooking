@@ -217,20 +217,20 @@
 <!-- Movie List -->
 
 <div>
- <!--   <form th:action="@{/getSeats}" th:object="${booking}" method="POST"  name="booking-form">
--->
+    <!--   <form th:action="@{/getSeats}" th:object="${booking}" method="POST"  name="booking-form">
+   -->
     <table style=" padding-left:100px;width: 60%;">
         <tr style="height: 50vh" th:each="sm: ${screeningMovies}" >
-           <!-- <input type="hidden" name="theatreId  " value="1" th:field="*{theatreId}"/>
-            <input type="hidden" name="theaterName" value="Spy Cinemas" />
-            <input type="hidden" name="theaterAddress" value="Frisco,Tx" />
-            <input type="hidden" name="title" th:value="${sm.getMovie().getTitle()}" />
-            <input type="hidden" name="selectedDate" th:value="${sm.getDate()}" />
-            <input type="hidden" name="screenId" th:value="${sm.getScreenId()}"/>
-            <input type="hidden" name="screenName" th:value="${sm.getScreenName()}" />
-            <input type="hidden" name="ticketPrice" th:value="${sm.getTicketPrice()}" />
-            <input type="hidden" name="showTime" value="" />
-            <input type="hidden" name="showId" value="" />-->
+            <!-- <input type="hidden" name="theatreId  " value="1" th:field="*{theatreId}"/>
+             <input type="hidden" name="theaterName" value="Spy Cinemas" />
+             <input type="hidden" name="theaterAddress" value="Frisco,Tx" />
+             <input type="hidden" name="title" th:value="${sm.getMovie().getTitle()}" />
+             <input type="hidden" name="selectedDate" th:value="${sm.getDate()}" />
+             <input type="hidden" name="screenId" th:value="${sm.getScreenId()}"/>
+             <input type="hidden" name="screenName" th:value="${sm.getScreenName()}" />
+             <input type="hidden" name="ticketPrice" th:value="${sm.getTicketPrice()}" />
+             <input type="hidden" name="showTime" value="" />
+             <input type="hidden" name="showId" value="" />-->
             <td >
                 <img th:src="@{'data:image/jpeg;base64,'+${sm.getMovie().generateBase64Image()}}" style="width:200px;height:250px">
             </td>
@@ -243,7 +243,13 @@
 
                 <div style="padding-top: 0px;">
                     <h3 th:text="${sm.getScreenName()}"></h3>
-                    <button class="showtime-btn"  th:attr="onclick='launchMyForm(this,\'' + ${sm.getDate()}+  '\');'" th:each="sh : ${sm.getShows()}" th:text="${sh.getShowTime()}" th:value="${sh.getShow_id()}">1.30pm</button>
+                    <button class="showtime-btn"
+                            th:attr="onclick='launchMyForm(this,\'' + ${sm.getDate()}+  '\');'"
+                            th:each="sh : ${sm.getShows()}"
+                            th:text="${sh.getShowTime()}"
+                            th:value="${sh.getShowId()}">
+
+                    </button>
                 </div>
 
             </td>

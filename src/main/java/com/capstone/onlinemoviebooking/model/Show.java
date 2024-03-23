@@ -16,7 +16,7 @@ public class Show {
     @Id
     @Column(name = "SHOW_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long show_id;
+    private long showId;
 
     private java.sql.Date startDate;
     private java.sql.Date endDate;

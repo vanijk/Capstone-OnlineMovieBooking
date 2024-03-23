@@ -16,6 +16,13 @@ public interface ShowRepositoryI extends JpaRepository<Show,Long> {
     @Query( value = "SELECT * FROM `show` sh WHERE sh.movie_title = :title ",
             nativeQuery = true)
     List<Show> getShowsByMovieTitle(String title);
+    @Modifying
+    @Transactional
+    @Query( value = "delete from `Show` WHERE `show_id` = :id ",
+                 nativeQuery = true)
+    void deleteShowBYId(long id);
+
+
   // @Modifying
  //   @Transactional
    // @Query( value = "UPDATE from Movie  WHERE title like :title ",

@@ -9,11 +9,20 @@
           crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/admin-page">Make My Movie Admin Page</a>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <div class="mb-3">
             <h1> Enter Movie Name</h1>
-            <form action="/getMovie" method="get">
+            <form action="/admin/saveMovie" method="get">
                 <div class="form-group">
 
                     <input type="text" name="title"  class="form-control" placeholder="Enter Movie name">

@@ -34,6 +34,7 @@ public class MovieService {
     @Autowired
     private ScreenRepositoryI screenRepositoryI;
     private static final String API_URL = "http://www.omdbapi.com/?apikey=b79fdda2&t=";
+    private static final String YOUTUBE_TRAILER_URL = "https://www.youtube.com/embed/";
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     public void addMovie(String title,String trailerUrl) {
         try {
@@ -48,7 +49,7 @@ public class MovieService {
             Image image = ImageIO.read(url1);
             byte[] content = url1.openStream().readAllBytes();
             movie.setImageData(content);
-            movie.setTrailerUrl(trailerUrl);
+            movie.setTrailerUrl(YOUTUBE_TRAILER_URL+trailerUrl);
             movieRepositoryI.save(movie);
 
         }catch(Exception e){
@@ -104,6 +105,20 @@ public class MovieService {
         }
         return movieDTOS;
     }
+    public MovieDTO getMovieDTOByMovie(String title){
+        MovieDTO movieDTO = null;
+        try {
+            movieDTO = new MovieDTO();
+            movieDTO.setShows(showRepositoryI.getShowsByMovieTitle(title));
+
+        }catch (Exception e){
+            LOGGER.error("assignShow failed"+e.getMessage());
+            e.printStackTrace();
+        }
+        return movieDTO;
+    }
+
+
     public String assignShow(String title,long screenId,String showTime,java.sql.Date starDate,java.sql.Date endDate){
       try {
           Movie movie = movieRepositoryI.getReferenceByTitle(title);

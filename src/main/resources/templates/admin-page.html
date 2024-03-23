@@ -39,7 +39,7 @@
 
     <div class = "row">
         <div class = "col-lg-3">
-            <a th:href = "@{/admin-add-movie}" class = "btn btn-primary btn-sm mb-3"> Get Movies</a>
+            <a th:href = "@{/admin/add-newmovie}" class = "btn btn-primary btn-sm mb-3"> Get Movies</a>
         </div>
     </div>
     <table class = "table table-bordered">
@@ -58,7 +58,7 @@
         <tbody>
         <tr th:each = "movie: ${moviesDTOS}">
             <td th:if="${movie.getShows().isEmpty()}">
-                <a th:href="@{/admin/edit-page/{id}(id=${movie.getTitle()})}">
+                <a th:href="@{/admin/asign-page/{id}(id=${movie.getTitle()})}">
                 <i class="fa fa-edit" style="font-size:24px;color:black;margin-left: 20px"></i>
                 </a>
                     <a th:href="@{admin/deleteby-movieId/{id}(id=${movie.getTitle()})}">
@@ -75,8 +75,12 @@
         </tr>
         <tr th:each = "movie: ${moviesDTOS}">
             <td th:unless="${movie.getShows().isEmpty()}">
-                <i class="fa fa-edit" style="font-size:24px;color:black;margin-left: 20px"></i>
-                <i class="fa fa-trash-o" style="font-size:24px;color:black;margin-left: 30px"></i>
+                <a th:href="@{/admin/edit-page/{id}(id=${movie.getTitle()})}">
+                    <i class="fa fa-edit" style="font-size:24px;color:black;margin-left: 20px"></i>
+                </a>
+                <a th:href="@{admin/deleteMovieAndShows/{id}(id=${movie.getTitle()})}">
+                    <i class="fa fa-trash-o" style="font-size:24px;color:black;margin-left: 30px"></i>
+                </a>
             </td>
             <td th:unless="${movie.getShows().isEmpty()}">
                 <div  th:text ="${movie.getTitle()}"></div>
