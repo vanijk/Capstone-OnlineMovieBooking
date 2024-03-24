@@ -1,8 +1,8 @@
 # Make My Movie
 This is a movie ticket booking application using Spring Boot, Spring Security,mySQL and HTML/CSS/Bootstrap for the frontend. 
 
- It Uses API call "http://www.omdbapi.com/?apikey=b79fdda2&t=" to get details about movie.
-  ![Movies](movies-home-page.png)
+ It Uses API call "http://www.omdbapi.com" to get details about movie.
+  ![Movies](home-page.png)
 
  ## Running MakeMyMovie locally
 
@@ -33,16 +33,17 @@ Right click ```CapstoneOnlineMovieBookingApplication``` class file and choose Ru
 
 The application can then be accessed by pointing your browser to http://localhost:8080/
 
-2d) You can see
-      ![Movies](home-page.png) because no movies added to the database
+2d) You see this dont scare
+      ![Movies](No-movies-added.png) because no movies added to the database
       In your browser to http://localhost:8080/admin-page
       use following admin credential
       UserName - admin@makemymovie.com
       passwoed - adminadmin
 
  2c)You see this page 
-     ![Movies](No-movies-added.png)
+     ![Movies](admin-page.png)
      click getMovie button 
+     ![Movies](Add-movie-page.png)
      Enter Movie Name and Trailer URL 
      ex for Migration Movie 
      movie Name - Migration
