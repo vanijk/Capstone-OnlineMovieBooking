@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Error page</title>
+    <meta charset="utf-8" />
+
 </head>
-<body>
-<h1>ERROR</h1>
+<body style="text-align: center">
+<h1>Error</h1>
+<h1>404</h1>
+<h3>Something went wrong</h3>
+<a th:href="@{/index}">Back to Home Page</a>
 </body>
 </html>

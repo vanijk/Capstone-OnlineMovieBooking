@@ -36,6 +36,7 @@ function increament(elementSelect){
 
     let c ;
     const ticketCount = document.getElementById("ticket-count");
+    const spticketcount = document.getElementById("ticketcont");
   //  alert(ticketCount.value);
     let  ticketValue = document.getElementById("tickets1").value;
     document.getElementById("tickets1").value = ticketValue + elementSelect+",";
@@ -50,6 +51,7 @@ function increament(elementSelect){
 
     }
     ticketCount.value =c+1;
+    spticketcount.innerText = c+1;
    // alert(ticketCount.value);
    // let tickets =document.getElementsByName("tickets");
    // document.getElementsByName("tickets1") = "bjbj";
@@ -69,10 +71,12 @@ function decreament(elementSelect){
 
     let c ;
     const ticketCount = document.getElementById("ticket-count");
+    const spticketcount = document.getElementById("ticketcont");
     if(ticketCount.value != ""){
         let n = ticketCount.value;
         c = parseInt(n,10);
         ticketCount.value =c-1;
+        spticketcount.innerText = c-1;
     }
 }
 function updateRight(elementSelect){

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style1.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/seat-style.css" />
-    <link rel="stylesheet" href="css/sign-in.css" />
+    <link rel="stylesheet" href="css/booking.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -62,9 +62,9 @@
             <div id="guest-credit-form" class="childbox">
                 <h1>Check Out</h1>
                 <div class="guest-email-container" style="text-align: left;padding: 20px">
-<form action="/guest-signup-process" method="post">
+<form action="/guest-signup-process" method="GET">
                     <h5 style="font-size: 20px;font-weight: bold">Email Address</h5>
-                    <input type="text" name="guestEmail" placeholder="Email" style="width:70%"/>
+    <input type="email" name="guestEmail" placeholder="Email" style="width:70%"/>
     <button type="submit" class="button-fill">complete checkout</button>
 </form>
                 </div>
@@ -123,18 +123,24 @@
 
         </div>
         <div class="right-container" style="width:40%">
-            <h3>Kung fu panda 4</h3>
-            <p>march 19 2024 at 7:55 PM<br>
-            Cinemark west Plano<br>
-            Screen 1<br>
-            Tickets(<span>2</span>)<br>
-            Seat<span>A1</span></p>
+            <br>
+            <h3 th:text="${booking.getTitle()}">Kung fu panda 4</h3>
+            <h4 th:text="${booking.getTheaterName()}"></h4>
+            <h4 th:text="${booking.getScreenName()}"></h4>
+            <p th:text="${#calendars.day(booking.getSelectedDate())}+'  '+${#calendars.monthName(booking.getSelectedDate())}+'  '+${#calendars.year(booking.getSelectedDate())}"  >
+            </p>
+            <p >Tickets(<span th:text="${booking.getNumberOfTickets()}"></span>)</p>
+            <p >Seats :(<span th:text="${booking.getSeatNumber()}"></span>)</p>
+
             <h3>Summary</h3>
             <table style="color:#333">
-                <tr><td>Tickets</td><td>$9.50</td></tr>
-                <tr><td>Online Ticket Fees<h5>Online Fees are waived when you register</h5></td><td>$1.89</td></tr>
-                <tr><td>Tax</td><td>$0.94</td></tr>
-                <tr><td><h3>Total</h3></td><td>$12.33</td></tr>
+                <tr><td>Tickets</td><td th:text="'$'+${booking.getTicketPrice()} * ${booking.getNumberOfTickets()}"></td></tr>
+                <tr><td>Online Ticket Fees<h5>Online Fees are waived when you register</h5></td><td  th:text="'$'+${booking.getTicketPrice()} * ${booking.getNumberOfTickets()} *20 /100"></td></tr>
+                <tr><td>Tax</td><td  th:text="'$'+${booking.getTicketPrice()} * ${booking.getNumberOfTickets()} * 10 /100">$0.94</td></tr>
+
+                <tr><td>   <hr><h3>Total</h3></td>
+
+                    <td th:text="(${booking.getTicketPrice()} * ${booking.getNumberOfTickets()}) + (${booking.getTicketPrice()} * ${booking.getNumberOfTickets()} *20 /100) + (${booking.getTicketPrice()} * ${booking.getNumberOfTickets()} *10 /100)+'$'">$12.33</td></tr>
 
             </table>
             <p>By completing your purchase,

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -11,6 +11,8 @@
 <body>
 <div>
     <h2>Success!!!</h2>
+
+
 
     <!--YOU CAN SPECIFY VISIBLE CONTENT BASED ON USER ROLE-->
     <div sec:authorize="isAuthenticated()">
@@ -28,7 +30,7 @@
         <td>
             <strong>Logged user: <span sec:authentication="name"></span></strong>
             <br>
-           <strong>Roles: <span sec:authentication="principal.authorities"></span></strong>
+            <strong>Roles: <span sec:authentication="principal.authorities"></span></strong>
         </td>
         <td>
             <br><br>
@@ -39,5 +41,6 @@
         </td>
     </tr>
 </table>
+
 </body>
 </html>

@@ -34,6 +34,15 @@ public class HomeController {
          model.addAttribute("movies",movies);
          return "index";
     }
+    @GetMapping("/index")
+    public String getMoviesByTodayIndex(Model model) {
+        Date currentDate = Date.valueOf(LocalDate.now());
+        screeningMovies = screeningService.getMoviesByTheterIdAndDate(1l,currentDate,currentDate);
+        movies = movieService.getMovies();
+        model.addAttribute("screeningMovies",screeningMovies);
+        model.addAttribute("movies",movies);
+        return "index";
+    }
     @GetMapping("/getMoviesByDate")
     public String getMoviesByDate(@RequestParam String date,Model model) {
         System.out.println("Selected date"+ date);

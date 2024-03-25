@@ -1,6 +1,7 @@
 .ticket-body {
   background-color: #0C0F0AFF;
   font-family: "Yanone Kaffeesatz", sans-serif;
+
   /* font-weight: 600; */
 }
 
@@ -15,6 +16,8 @@ img {
   background-color: rgb(243, 235, 235);
   margin: 25px auto;
   position: relative;
+  margin-top: 20vh;
+  text-align: center;
 }
 
 .holes-top {

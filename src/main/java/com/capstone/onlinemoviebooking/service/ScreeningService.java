@@ -56,6 +56,9 @@ public class ScreeningService {
                     sm = new ScreeningMovie();
                     movie = show.getMovie();
                     sm.setMovie(movie);
+                    sm.setTheatreId(show.getScreen().getTheatre().getTheatreId());
+                    sm.setTheaterName(show.getScreen().getTheatre().getTheatreName());
+                    sm.setTheaterAddress(show.getScreen().getTheatre().getTheatreAddress());
                     screen = show.getScreen();
                     sm.setScreenId(screen.getScreenId());
                     sm.setScreenName(screen.getScreenName());

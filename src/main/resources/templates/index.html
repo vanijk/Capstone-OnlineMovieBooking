@@ -73,8 +73,11 @@
                        </li>-->
                     <li class="nav-item" id="signinli">
                         <div sec:authorize="isAuthenticated()">
-                            <h1>Authenticated</h1>
-                            <span th:text="${#request.userPrincipal.principal.firstName}"></span>
+                            <form action=#  th:action="@{/logout}" method="post">
+                                <span sec:authentication="name"> </span>
+                                <button style="font-size:14px;border: 0; background: transparent;cursor: hand;cursor: pointer;">Log-out <i class="fa fa-sign-out"></i>
+                                </button>
+                            </form>
                         </div>
                         <div sec:authorize="!isAuthenticated()">
                             <a class="login-link fa fa-user" href="/login"><span class="login-link">Log in/Sign in</span></a>
@@ -217,11 +220,11 @@
 <!-- Movie List -->
 
 <div>
-    <!--   <form th:action="@{/getSeats}" th:object="${booking}" method="POST"  name="booking-form">
-   -->
+
+
     <table style=" padding-left:100px;width: 60%;">
         <tr style="height: 50vh" th:each="sm: ${screeningMovies}" >
-            <!-- <input type="hidden" name="theatreId  " value="1" th:field="*{theatreId}"/>
+
              <input type="hidden" name="theaterName" value="Spy Cinemas" />
              <input type="hidden" name="theaterAddress" value="Frisco,Tx" />
              <input type="hidden" name="title" th:value="${sm.getMovie().getTitle()}" />
@@ -229,8 +232,7 @@
              <input type="hidden" name="screenId" th:value="${sm.getScreenId()}"/>
              <input type="hidden" name="screenName" th:value="${sm.getScreenName()}" />
              <input type="hidden" name="ticketPrice" th:value="${sm.getTicketPrice()}" />
-             <input type="hidden" name="showTime" value="" />
-             <input type="hidden" name="showId" value="" />-->
+
             <td >
                 <img th:src="@{'data:image/jpeg;base64,'+${sm.getMovie().generateBase64Image()}}" style="width:200px;height:250px">
             </td>
@@ -243,13 +245,21 @@
 
                 <div style="padding-top: 0px;">
                     <h3 th:text="${sm.getScreenName()}"></h3>
-                    <button class="showtime-btn"
-                            th:attr="onclick='launchMyForm(this,\'' + ${sm.getDate()}+  '\');'"
-                            th:each="sh : ${sm.getShows()}"
-                            th:text="${sh.getShowTime()}"
-                            th:value="${sh.getShowId()}">
+                    <div th:each="sh : ${sm.getShows()}" style="float: left">
 
-                    </button>
+                    <form th:action="@{/getSeats}" method="post" th:object="${booking}">
+                        <input type="hidden" name="theatreId" th:value="${sm.getTheatreId()}" />
+                        <input type="hidden" name="title" th:value="${sm.getMovie().getTitle()}" />
+                        <input type="hidden" name="selectedDate" th:value="${sm.getDate()}" />
+                        <input type="hidden" name="screenId" th:value="${sm.getScreenId()}"/>
+                        <input type="hidden" name="screenName" th:value="${sm.getScreenName()}" />
+                        <input type="hidden" name="ticketPrice" th:value="${sm.getTicketPrice()}" />
+                        <input type="hidden" name="showId" th:value="${sh.getShowId()}" />
+                        <input type="hidden" name="showTime" th:value="${sh.getShowTime()}" />
+                        <button type="submit" class="showtime-btn"  th:text="${sh.getShowTime()}"></button>
+
+                    </form>
+                    </div>
                 </div>
 
             </td>
@@ -261,7 +271,8 @@
 <script>
     function launchMyForm(event,dt)
     {
-        const formElement = document.createElement("form");
+
+       const formElement = document.createElement("form");
         formElement.method = "POST";
         formElement.action = "/getSeats"
 
@@ -270,13 +281,13 @@
         inputElement1.type = "number";
         inputElement1.value = 1;
         formElement.appendChild(inputElement1);
-
+        alert(inputElement1.value);
         const inputElement2 = document.createElement("input");
         inputElement2.name = "showId";
         inputElement2.type = "number";
         inputElement2.value = event.value;
         formElement.appendChild(inputElement2);
-
+        alert(inputElement2.value);
         const inputElement3 = document.createElement("input");
         inputElement3.name = "selectedDate";
         inputElement3.type = "date";
@@ -285,7 +296,7 @@
 
         document.body.appendChild(formElement);
         formElement.submit();
-
+        alert(inputElement3.value);
     }
 </script>
 <!-- Movie List Ends -->

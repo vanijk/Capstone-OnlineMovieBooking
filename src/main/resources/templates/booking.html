@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/style1.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/seat-style.css" />
+
     <link rel="stylesheet" href="css/sign-in.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -32,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="/index">Home</a>
                     </li>
                 <!--    <li class="nav-item">
                         <div class="dropdown">
@@ -87,22 +88,19 @@
             <input type="hidden" th:field="*{selectedDate}" th:value="${booking.getSelectedDate()}">
             <input type="hidden" th:field="*{showId}" th:value="${booking.getShowId()}">
             <input type="hidden" th:field="*{showTime}" th:value="${booking.getShowTime()}">
-            <input type="hidden" th:field="*{screenName}" id="testid" name="testname" th:value="${booking.getScreenName()}" />
-        <input type="hidden" >
-        <h3 th:text="${booking.getScreenName()}"></h3>
-        <h3 th:text="${booking.getTicketPrice()}"></h3>
-        <h3 th:text="${booking.getTitle()}"></h3>
-        <h3 th:text="${booking.getTheaterName()}"></h3>
-        <h3 th:text="${booking.getSelectedDate()}"></h3>
-        <h3 th:text="${booking.getShowTime()}"></h3>
-            <h3 th:text="${booking.getTicketPrice()}"></h3>
-            <span>Tickets</span>
-
-            <input type="text" th:field="*{ticketPrice}" th:value="${booking.ticketPrice}">
-            <input type="text" th:field="*{numberOfTickets}" id="ticket-count" />
+            <input type="hidden" th:field="*{screenName}" th:value="${booking.getScreenName()}" />
+        <ul style="text-align: left">
+            <li th:text="${booking.getTitle()}"> </li>
+            <li th:text="${booking.getScreenName()}"> </li>
+            <li th:text="${booking.getSelectedDate()}"></li>
+            <li th:text="${booking.getShowTime()}"></li>
+            <li >Ticket Price : $<span th:text="${booking.getTicketPrice()}"></span></li>
+            <li>Tickets :  <span id="ticketcont" style="font-weight: bold;font-size: large"></span></li>
+        </ul>
+            <input type="hidden" th:field="*{numberOfTickets}" id="ticket-count" />
             <input type="hidden" th:field="*{seatNumber}" id="tickets1">
-
-            <button id="book-tickets-btn1" type="submit">Check Out</button>
+<br>
+            <button id="book-tickets-btn1" type="submit" class="button-fill" style="width: 100%">Check Out</button>
         </form>
       <!--  <button id="book-tickets-btn" th:onclick="testcall()">Book</button>-->
     </div>

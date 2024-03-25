@@ -28,8 +28,6 @@ public class UserController {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
-
-
     private UserServiceImpl userDetailsService;
     @Autowired
     SeatMapService seatMapService;
@@ -37,57 +35,39 @@ public class UserController {
     public UserController(UserServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
-    @PostMapping("/login-sumit")
-    private String getLoginSubmit( HttpServletRequest request, HttpServletResponse response)
+    @GetMapping("/login")
+    public String getLoginPage(HttpServletRequest request)
     {
 
-        RequestCache requestCache = new HttpSessionRequestCache();
-        requestCache.getRequest(request,response);
+        String referrer = request.getHeader("Referer");
+        if(referrer!=null){
+            request.getSession().setAttribute("url_prior_login", referrer);
+        }
 
+        log.info("Login page displayed" + referrer);
+        return "login";
+    }
+    @RequestMapping("/home")
+    public String getHome(HttpServletRequest request)
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         authentication.getName();
-        boolean hasUserRole = authentication.getAuthorities().stream()
+        boolean hasUserRoleAdmin = authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-        String url = (String)request.getSession().getAttribute("url_prior_login");
-        return "/admin-page";
-     /*   if(url != null || url != "/sign-in" || url != "/login"){
-            url = getUrl(url);
-        }else if(){
-            return "/admin-page";
-        }
-        if(url.equals("/save-booking")){
-            return "redirect:/e-ticket";
-        }
-        System.out.println(url);
-        //  model.addAttribute("userDto", new UserDTO());
-        return "redirect:"+url;
+        boolean hasUserRoleUser = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+        boolean hasUserRoleGuest = authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_GUEST"));
+        if(hasUserRoleAdmin)
+            return "redirect:/admin-page";
+        if(hasUserRoleUser){
 
-        // return "test";*/
+            String url = (String)request.getSession().getAttribute("url_prior_login");
+        }
+        log.info("home page displayed");
+        return "/index";
     }
 
-    @PostMapping("/thankyou")
-    private String redirectTothankyou(String test,Model model)
-    {
-        System.out.println(test);
-        return "thankyou";//"redirect:/login";
-    }
-    @GetMapping("/sign-up")
-    public String signUp(Model model)
-    {
-        model.addAttribute("userDto", new UserDTO());
-        return "sign-up";
-    }
- @GetMapping("/home")
-  public String signUp(Model model,HttpServletRequest request)
-  {
-      String url = (String)request.getSession().getAttribute("url_prior_login");
-      if(url != null){
-         url = getUrl(url);
-      }
-    //  model.addAttribute("userDto", new UserDTO());
-      return "url";
-  }
 
     @PostMapping("/signup-process")
     public String signupProcess(@Valid @ModelAttribute("userDto") UserDTO userDTO, BindingResult bindingResult,Model model)
@@ -96,17 +76,15 @@ public class UserController {
         {
             model.addAttribute("Message","Error in registration try again");
             log.warn("Wrong attempt"+bindingResult.getAllErrors());
-            //return "sign-up";
-            return "sign-in";
+            return "login";
         }
-
 
         String message = userDetailsService.creat(userDTO);
         model.addAttribute("Message",message);
-        //return "confirmation";
-        return "sign-in";
+
+        return "login";
     }
-    @PostMapping("/guest-signup-process")
+    @GetMapping("/guest-signup-process")
     public String GustSignupProcess(String guestEmail,Model model, HttpServletRequest request)
     {
         long userId = userDetailsService.creatGuest(guestEmail);
@@ -117,51 +95,6 @@ public class UserController {
         }
         return "e-ticket";
     }
-    @GetMapping("/login")
-    public String getLoginPage(Model model, HttpServletRequest request, HttpServletResponse response)
-    {
-        RequestCache requestCache = new HttpSessionRequestCache();
-        requestCache.saveRequest(request,response);
-        log.info("Login page displayed");
-        String referrer = request.getHeader("Referer");
-        if(referrer!=null){
-            request.getSession().setAttribute("url_prior_login", referrer);
-        }
-        model.addAttribute("userDto", new UserDTO());
-        //return "login";
-        return "sign-in";
-    }
-    @GetMapping("/sign-in")
-    public String getSigninPage(Model model,HttpServletRequest request,HttpServletResponse response)
-    {
-        RequestCache requestCache = new HttpSessionRequestCache();
-        requestCache.saveRequest(request,response);
-        log.info("Login page displayed");
-        String referrer = request.getHeader("Referer");
-        if(referrer!=null){
-            request.getSession().setAttribute("url_prior_login", referrer);
-        }
-        model.addAttribute("userDto", new UserDTO());
-        //return "login";
-        return "sign-in";
-    }
-    @GetMapping("/error")
-    public String getErrorPage(Model model,HttpServletRequest request)
-    {
 
-        return "error";
-    }
-
-    /*  @RequestMapping("/home")
-      public String getHome()
-      {
-          log.info("home page displayed");
-          return "home";
-      }*/
-    String getUrl(String url){
-        String[] strArr = url.split("http://localhost:8080");
-        System.out.println("URL ARRAY :" +strArr.length +" "+ strArr[1]);
-        return strArr[1];
-    }
 
 }

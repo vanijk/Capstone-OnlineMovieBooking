@@ -29,7 +29,28 @@ public class BookingController {
     SeatMapRepositoryI seatMapRepositoryI;
     @Autowired
     BookingRepositoryI bookingRepositoryI;
+
     @GetMapping("/getSeats")
+    public String getSeats(){
+        return "/thankyou";
+    }
+    @PostMapping("/getSeats")
+    public String getSeatsPost(Booking booking,ModelMap map){
+       /* long theatreId = booking.getTheatreId();
+        java.sql.Date selectedDate = booking.getSelectedDate();
+        long showId = booking.getShowId();
+        Booking booking1 = bookingService.getBooking(theatreId,selectedDate,showId);
+        System.out.println(booking.getScreenName());
+        System.out.println(booking.getTitle());
+        System.out.println(booking.getTicketPrice());*/
+        List<SeatMap> seats = seatMapRepositoryI.findAll();
+        seats = seatMapService.setBookedSeats(seats,booking.getScreenId(),booking.getSelectedDate(),booking.getShowTime());
+        List<List<SeatMap>> seatList = getSeatListOfList(seats);
+        map.addAttribute("booking",booking);
+        map.addAttribute("seatsOfSeats",seatList);
+        return "booking";
+    }
+   /* @GetMapping("/getSeats")
     public String getSeats(long theatreId, Date selectedDate, long showId,ModelMap map){
        System.out.println("Theater ID :"+theatreId);
         System.out.println("Selected Date :"+selectedDate);
@@ -40,8 +61,8 @@ public class BookingController {
 
         map.addAttribute("seatsOfSeats",seatList);
         return "booking";
-    }
-    @PostMapping("/getSeats")
+    }*/
+   /* @PostMapping("/getSeats")
     public String getSeatsPost(long theatreId, Date selectedDate, long showId,ModelMap map){
         System.out.println("Theater ID :"+theatreId);
         System.out.println("Selected Date :"+selectedDate);
@@ -56,7 +77,7 @@ public class BookingController {
         map.addAttribute("booking",booking);
         map.addAttribute("seatsOfSeats",seatList);
         return "booking";
-    }
+    }*/
     @PostMapping("/save-booking")
     public String getBookingDetails(Booking booking,Model model, HttpServletRequest request){
         System.out.println(booking.getSeatNumber());

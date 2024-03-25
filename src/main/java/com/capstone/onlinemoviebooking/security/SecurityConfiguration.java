@@ -78,30 +78,34 @@ public class SecurityConfiguration {
 
   @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+      http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(
+              (auth) -> auth
 
-       http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
-                        (auth) -> auth
-                                .requestMatchers("/login-submit").authenticated()
-                                .requestMatchers("/**").permitAll()
-                )
+                      .requestMatchers("/", "/login*",
+                              "/css/*", "/js/*", "/sign-up", "/getSeats","/signup-process").permitAll()
+                      .requestMatchers("/home","/admin*","/admin/**").hasAnyRole("USER", "ADMIN","GUEST")
+                      .requestMatchers("/**").permitAll()
+                      .anyRequest().authenticated()
 
-                .formLogin(form -> form
-                        .loginPage("/sign-in")
-                        .loginProcessingUrl("/sign-in") // should point to login page
-                        .failureForwardUrl("/error")
-                        .successForwardUrl("/login-submit") // must be in order thymeleaf security extras work
-                        .permitAll()
-                )
-                .logout(
-                        logout -> logout
-                                .invalidateHttpSession(true)
-                                .clearAuthentication(true)
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/")
-                                .permitAll()
-                );
+
+            )
+
+              .formLogin(form -> form
+                      .loginPage("/login")
+                      .loginProcessingUrl("/login") // should point to login page
+                      .successForwardUrl("/home") // must be in order thymeleaf security extras work
+                      .permitAll()
+              )
+              .logout(
+                      logout -> logout
+                              .invalidateHttpSession(true)
+                              .clearAuthentication(true)
+                              .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                              .logoutSuccessUrl("/")
+                              .permitAll()
+              );
 
 
         return http.build();

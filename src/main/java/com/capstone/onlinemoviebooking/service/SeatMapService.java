@@ -3,6 +3,7 @@ package com.capstone.onlinemoviebooking.service;
 import com.capstone.onlinemoviebooking.model.BookedSeats;
 import com.capstone.onlinemoviebooking.model.SeatMap;
 import com.capstone.onlinemoviebooking.repository.BookedSeatsRepositoryI;
+import com.capstone.onlinemoviebooking.repository.SeatMapRepositoryI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ public class SeatMapService {
 
     @Autowired
     BookedSeatsRepositoryI bookedSeatsRepository;
-    int screenId = 1;
-    private java.sql.Date screeningDate = new java.sql.Date(2024,3,14);;
-    private String screeningTime = "10:30";
-    public List<SeatMap> setBookedSeats(List<SeatMap> seats){
+    @Autowired
+    SeatMapRepositoryI seatMapRepositoryI;
+   // int screenId = 1;
+   // private java.sql.Date screeningDate = new java.sql.Date(2024,3,14);;
+   // private String screeningTime = "10:30";
+    public List<SeatMap> setBookedSeats(List<SeatMap> seats,long screenId, java.sql.Date screeningDate, String screeningTime){
         List<BookedSeats> bookedSeats = bookedSeatsRepository.findSeatsBookedByScreenDateTime(screenId,screeningDate,screeningTime);
 
         for(int i = 0; i< seats.size(); i++){
@@ -41,6 +44,7 @@ public class SeatMapService {
                 }
             }
         }
+        seatMapRepositoryI.setSeatsBack();
        /* List<BookedSeats> bookedSeats = bookedSeatsRepository.findSeatsBookedByScreenDateTime(screenId,screeningDate,screeningTime);
 
         for(int i = 0; i< seats.size(); i++){

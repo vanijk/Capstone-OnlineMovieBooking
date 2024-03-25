@@ -28,12 +28,12 @@ public class MovieController {
         map.addAttribute(movie);
         return new ModelAndView("result", map);
     }
-    @GetMapping("/add-newmovie")
+ /*   @GetMapping("/add-newmovie")
         public ModelAndView welcome() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add-movie.html");
         return modelAndView;
-    }
+    }*/
     @PostMapping("/add-movie")
     public String saveMovie(@RequestBody Movie movie){
 

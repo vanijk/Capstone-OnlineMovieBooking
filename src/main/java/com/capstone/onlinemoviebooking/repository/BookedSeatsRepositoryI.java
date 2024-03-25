@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BookedSeatsRepositoryI extends JpaRepository<BookedSeats, Long> {
 
-    @Query("FROM BookedSeats where screenId = screenId and screeningTime = screeningTime and screeningDate = screeningDate")
-    List<BookedSeats> findSeatsBookedByScreenDateTime(int screenId, java.sql.Date screeningDate, String screeningTime);
+    @Query("FROM BookedSeats where screenId = :screenId and screeningTime = :screeningTime and screeningDate = :screeningDate")
+    List<BookedSeats> findSeatsBookedByScreenDateTime(long screenId, java.sql.Date screeningDate, String screeningTime);
 }

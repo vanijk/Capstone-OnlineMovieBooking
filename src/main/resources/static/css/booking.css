@@ -23,10 +23,10 @@
 		0 10px 10px lightgrey;
 	position: relative;
 	overflow: hidden;
-	min-width: 150vh;
-	max-width: 100%;
-	min-height: 175vh;
-	margin-top: 20vh;
+	min-width: 100vh;
+	max-width: 90%;
+	min-height: 75vh;
+	margin-top: 30vh;
 	display: flex;
 }
 
